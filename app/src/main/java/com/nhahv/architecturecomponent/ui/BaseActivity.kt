@@ -1,6 +1,7 @@
 package com.nhahv.architecturecomponent.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
