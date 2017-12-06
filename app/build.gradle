@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'me.tatarka.retrolambda'
+
+
+android {
+    compileSdkVersion rootProject.compile
+    defaultConfig {
+        applicationId "com.nhahv.architecturecomponent"
+        minSdkVersion rootProject.minSdk
+        targetSdkVersion rootProject.target
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+                dataBinding.enabled = true
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$buildToolsVersion"
+    implementation "com.android.support.constraint:constraint-layout:$androidConstraint"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // life cycle architecture
+    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
+
+    // live architecture
+    implementation "android.arch.lifecycle:extensions:$roomVersion"
+    implementation "android.arch.lifecycle:reactivestreams:$roomVersion"
+
+    // room architecture
+    implementation "android.arch.persistence.room:rxjava2:$roomVersion"
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    kapt "android.arch.persistence.room:compiler:$roomVersion"
+
+    // paging architecture
+    implementation "android.arch.paging:runtime:$archPaging"
+
+    // databinding
+    kapt "com.android.databinding:compiler:$gradlePluginVersion"
+
+    // rxjava rxandroid
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+
+}
+
+kapt {
+    generateStubs = true
+}
